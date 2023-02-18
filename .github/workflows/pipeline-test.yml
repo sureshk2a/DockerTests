@@ -1,0 +1,42 @@
+name: "Run pipeline tests"
+
+jobs:
+  ui_pipeline_tests:
+    name: "UI pipeline tests"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome]
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install package"
+        run: yarn install
+        working-directory: ./
+
+      -name: "Wait for UI response"
+        uses: emilioschepsis/wait-for-endpoint@1.0.3
+        with:
+          url: https://the-internet.herokuapp.com/
+          method: GET
+          expected-status: 200
+          timeout: 600000
+          interval: 1000
+
+      -name: "Run Tests"
+        run: yarn test:demo-tests
+        env:
+          BROWSER: ${{ matrix.browser }}
+          URL: https://the-internet.herokuapp.com/
+      
+      # -name: "Upload report"
+      # if: always()
+      # uses: actions/upload-artifact@v3
+      # with:
+      #   name: Reports
+      #   retention-days: 5
+      #   path: |
+      #     packages/
+
+
