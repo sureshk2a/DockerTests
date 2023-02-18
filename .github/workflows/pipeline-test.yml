@@ -19,7 +19,7 @@ jobs:
         working-directory: ./
 
       - name: "Run Tests"
-        run: yarn test:demo-tests
+        run: yarn test:demo
         env:
           BROWSER: ${{ matrix.browser }}
           URL: https://the-internet.herokuapp.com/
