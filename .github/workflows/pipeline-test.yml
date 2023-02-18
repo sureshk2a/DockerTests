@@ -18,15 +18,6 @@ jobs:
         run: yarn install
         working-directory: ./
 
-      - name: "Wait for UI response"
-        uses: emilioschepsis/wait-for-endpoint@1.0.3
-        with:
-          url: https://the-internet.herokuapp.com/
-          method: GET
-          expected-status: 200
-          timeout: 600000
-          interval: 1000
-
       - name: "Run Tests"
         run: yarn test:demo-tests
         env:
