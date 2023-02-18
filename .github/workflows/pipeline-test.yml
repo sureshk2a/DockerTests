@@ -1,5 +1,8 @@
 name: "Run pipeline tests"
 
+on:
+  workflow_dispatch:
+
 jobs:
   ui_pipeline_tests:
     name: "UI pipeline tests"
